@@ -1,39 +1,34 @@
 <html>
-      <head><link rel="stylesheet" type="text/css" href="style.css"></head>
-      <body onload="func();">
-      <h2><center>This below row indicating questions.</center></h2><br>
-            <table style="width:100%">
-                  <tr id="t1"><td></td></tr>
-            </table>
-            <script>
-                    function func()
-                    {
-                             for(var i=1;i<=30;i++)
-                             {
-                                     var x=document.getElementById("t1").innerHTML;
-                                     var p="<td><input type='button' value='"+i+"' onclick ='myFunction("+i+");'/></td>";
-                                     document.getElementById("t1").innerHTML=x+p;
-                             }
+    <head><link rel="stylesheet" type="text/css" href="style.css"></head>
+    <body onload="func();">
+        <table>
+            <tr id="t1">
+                <td></td>
+            </tr>
+        </table>
+        
+        <script>
+            function func() {
+                for(var i=1;i<=30;i++) {
+                    var x=document.getElementById("t1").innerHTML;
+                    var p="<td><input type='button' value='"+i+"' onclick ='myFunction("+i+");'/></td>";
+                    document.getElementById("t1").innerHTML=x+p;
+                }
+            }
+        
+            function myFunction(a) {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("ques").innerHTML = this.responseText;
                     }
-            </script>
-            <script>
-                    function myFunction(a)
-                    {
-                             alert(a);
-                    }
-            </script>
-            <br>
-            <h2><center>This below Row will Contains The Questions description.</center></h2><br>
-            <table align="center" style="width:40%; height:100px">
-                   <tr>
-                       <th><center>Question Description.</center></th>
-                   </tr>
-            </table>
-            <br>
-            <br>
-            <input style="height:20px; width:20%;font-size:14pt;margin-left:40%">
-            <br>
-            <br>
-            <input style="float:right; margin-right:640px;" type="submit" value="submit" name="subscribe" id="mc-embedded-subscribe" class="button">
+                };
+                xhttp.open("GET", "retrieveQuestion.php?question=" +a, true);
+                xhttp.send();
+            }
+        </script>
+        <div id="ques"></div>
+        <input type="text" name="answer" />
+        <input type="button" value="Submit" />
       </body>
 </html>
